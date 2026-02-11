@@ -1,0 +1,51 @@
+{
+  "tools": [
+    {
+      "name": "search_docs",
+      "description": "Search indexed documents with filters.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {"type": "string"},
+          "top_k": {"type": "integer"},
+          "filters": {"type": "object"}
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "fetch_doc",
+      "description": "Fetch a document or chunk by id.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "doc_id": {"type": "string"},
+          "chunk_id": {"type": "string"}
+        }
+      }
+    },
+    {
+      "name": "reindex_doc",
+      "description": "Re-index a document by id.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "doc_id": {"type": "string"}
+        },
+        "required": ["doc_id"]
+      }
+    },
+    {
+      "name": "run_eval",
+      "description": "Run offline evaluation (RAGAS/TruLens).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "dataset": {"type": "string"},
+          "framework": {"type": "string", "enum": ["ragas", "trulens"]}
+        },
+        "required": ["dataset", "framework"]
+      }
+    }
+  ]
+}
