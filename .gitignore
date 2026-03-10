@@ -1,0 +1,18 @@
+# OS / Editor
+.DS_Store
+.idea/
+
+# Python
+.venv/
+**/__pycache__/
+*.pyc
+
+# Backend local runtime files
+backend/.env
+backend/data/
+backend/backend/data/
+
+# Node / Frontend build
+frontend/node_modules/
+frontend/dist/
+*.tsbuildinfo

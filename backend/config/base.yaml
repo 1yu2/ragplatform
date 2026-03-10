@@ -1,0 +1,82 @@
+app:
+  name: rag_sth
+  env: local
+  host: 0.0.0.0
+  port: 8000
+  first_token_timeout_sec: 10
+
+sqlite:
+  path: ./data/app.db
+
+milvus:
+  host: 127.0.0.1
+  port: 19530
+  collection: rag_chunks
+  collections:
+    - rag_chunks
+  enable_sparse: true
+  chunk_text_max_length: 16384
+
+minio:
+  endpoint: 192.168.10.60:9000
+  access_key: minioadmin
+  secret_key: minioadmin
+  bucket: rag-sth
+  secure: false
+  use_presigned_url: true
+  presigned_expire_seconds: 1200
+
+layout_api:
+  url: http://192.168.10.60:8888/layout-parsing
+  token: ""
+  fallback_url: ""
+  file_type: 0
+  max_num_imgs: 512
+  timeout_sec: 1200
+
+embedding_api:
+  url: http://192.168.10.60:5001/bge_embed
+  model_name: bge-m3
+  dim: 1024
+  api_key: "ollama"
+  auth_header: Authorization
+  auth_scheme: Bearer
+  timeout_sec: 300
+  batch_size: 64
+  max_retries: 3
+  retry_backoff_sec: 2.0
+
+llm_api:
+  url: https://api.deepseek.com/v1/chat/completions
+  api_key: ""
+  model_name: deepseek-chat
+  max_tokens: 131072
+  stream: true
+
+retrieval:
+  top_k: 5
+  dense_weight: 0.7
+  bm25_weight: 0.3
+  refuse_threshold: 0.1
+
+chunking:
+  chunk_size: 2800
+  overlap: 80
+  min_chunk_chars: 600
+  long_question_threshold: 35
+
+ingestion:
+  enforce_page_coverage: true
+  min_total_pages_to_enforce: 5
+  min_parsed_pages: 2
+  min_page_coverage_ratio: 0.2
+  enable_slice_fallback: true
+  slice_pages: 3
+  parse_batch_pages: 512
+  min_parse_batch_pages: 1
+  skip_failed_pages: true
+  max_concurrent_tasks: 1
+
+cors:
+  allow_origins:
+    - http://localhost:5173

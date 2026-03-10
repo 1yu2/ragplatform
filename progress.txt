@@ -1,0 +1,50 @@
+Project: rag_sth
+Last Updated: 2026-03-04 (Implementation Started)
+
+==============================
+已完成 (Completed)
+==============================
+[x] 需求澄清（多轮问答，关键假设收敛）
+[x] 产出 PRD 文档
+[x] 产出 APP_FLOW 文档
+[x] 产出 TECH_STACK 文档
+[x] 产出 FRONTEND_GUIDELINES 文档
+[x] 产出 BACKEND_STRUCTURE 文档
+[x] 产出 IMPLEMENTATION_PLAN 文档
+[x] 产出 CLAUDE 浓缩规范文档
+[x] 前端工程初始化（React + Vite + TS + AntD）
+[x] 后端工程初始化（FastAPI + 配置体系）
+[x] SQLite 表结构与初始化脚本
+[x] Milvus collection/index 初始化脚本
+[x] MinIO 文件上传与 SHA256 去重
+[x] Layout parsing 接口接入与标准化 schema（当前为通用兼容解析）
+[x] 语义切分实现（chunk_size=2000, overlap=50）
+[x] Embedding 入库（dense + sparse 字段兼容）
+[x] 混合检索与加权融合（0.7:0.3, topK=5）
+[x] 问题改写策略（长问题/模糊问题）
+[x] 拒答逻辑（top1 < 0.1 -> 无法回答）
+[x] DeepSeek 流式问答接口
+[x] 引用链路与格式化展示
+[x] 文件管理页面（上传/列表/状态）
+[x] 解析预览页面（版面块 + chunk）
+[x] 聊天页面（stream + citations）
+[x] 评估页面（指标 + 趋势图）
+[x] 质量评分（0-100）计算与展示（MVP 占位）
+[x] 开发操作文档（安装/配置/运行/评估/排障）
+
+==============================
+未完成 (Not Completed Yet)
+==============================
+[ ] 自动生成 50 条评估样本（当前评估为占位实现，未生成真实样本）
+[ ] 人工抽检流程（10%）
+[ ] RAGAS 指标计算与落库
+[ ] 评估报告产出
+
+==============================
+风险与待确认
+==============================
+[ ] 需要后续补充 layout parsing 返回样例 JSON（当前按约定 schema 先实现）
+[ ] 当前检索 BM25 为轻量词匹配补分，待替换为 Milvus 原生 BM25 检索链路
+[ ] 评估接口目前为 MVP 占位，需替换为真实 RAGAS 计算
+[ ] reranker 暂不接入（二期）
+[ ] Docker/云部署暂不纳入本期交付
