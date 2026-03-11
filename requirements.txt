@@ -1,0 +1,7 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+sqlmodel>=0.0.22
+pydantic>=2.8
+PyYAML>=6.0
+openai>=1.40
+pymilvus>=2.4

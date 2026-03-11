@@ -1,0 +1,81 @@
+Project: generate_image MVP
+Last Updated: 2026-03-10
+Owner: fishyuu
+
+========================================
+已完成 (Done)
+========================================
+[2026-03-09] 需求澄清完成（多轮审问，关键假设清零）
+[2026-03-09] 规范文档创建完成：
+  - PRD.md
+  - TECH_STACK.md
+  - FRONTEND_GUIDELINES.md
+  - BACKEND_STRUCTURE.md
+  - IMPLEMENTATION_PLAN.md
+  - claude.md
+[2026-03-10] 初始化项目目录骨架完成（app/config/logs/data）
+[2026-03-10] 配置系统落地完成（base/local/prod + env + config loader）
+[2026-03-10] SQLite 数据模型与启动建表骨架完成
+[2026-03-10] Mock/Real 模式切换配置骨架完成（ENABLE_MOCK + APP_ENV）
+[2026-03-10] 爆款/新品目录扫描与 CSV 自动生成完成（products.csv/new_products.csv）
+[2026-03-10] sha256 去重 + dedup.log 写入能力完成（仅爆款库，保留第一条）
+[2026-03-10] OpenAI-compatible 模型客户端封装完成（ModelScope/OpenRouter 均使用 OpenAI API 形式）
+[2026-03-10] 混合检索服务骨架完成（Dense+BM25, 7:3, Top3）并提供 `/api/search/by-new-id` 调试接口
+[2026-03-10] Milvus 初始化接口骨架完成（`/api/ingest/milvus/init`）
+[2026-03-10] 前端三页完成（`/studio`、`/gallery`、`/metrics`）
+[2026-03-10] 前端 API 层与 SSE 状态流组件完成（EventSource + timeline）
+[2026-03-10] 后端任务链路联通完成（`generate -> SSE -> gallery -> feedback -> metrics`）
+[2026-03-10] 本机联调通过：后端 API smoke test + 前端 build/dev 启动验证
+[2026-03-10] Milvus 初始化实测通过（192.168.10.54:19530, collection=img_all, HNSW）
+[2026-03-10] 默认 embedding 模型切换为 `jina-embeddings-v4`（代码默认值、配置模板、文档已统一）
+[2026-03-10] 前端页面文案完成中文化（导航、Studio/Gallery/Metrics、组件提示）
+[2026-03-10] 修复前端 `Failed to fetch`：后端已启用 CORS（支持 5173 跨域预检 OPTIONS）
+[2026-03-10] 调试模式 ingest 默认限制为 1000 条（products/new-products 可通过 query `limit` 覆盖）
+[2026-03-10] Studio 支持新品下拉选择与图片预览（不再只依赖手输 new_id）
+[2026-03-10] Top-3 参考图支持真实缩略图展示（`/api/assets/local-image`）
+[2026-03-10] 真实生成链路接入（检索Top3 -> Qwen分析 -> 图像模型调用，`ENABLE_MOCK=false`）
+[2026-03-10] 生成结果落盘与展示完成（`data/generated` + `/api/gallery/tasks/{task_id}` 返回 `generated_image_url`）
+[2026-03-10] 配置增强：自动加载 `.env.<APP_ENV>`，支持 `DATA_GENERATED_DIR`
+[2026-03-10] 操作文档更新完成（真实测试步骤 + 提示词样例）
+[2026-03-10] 提示词统一迁移到 `prompts/` 文件夹（Qwen/Nana 均改为文件读取）
+[2026-03-10] Qwen 输出协议改为 `selected_index(1/2/3) + style_prompt`，去掉 reason
+[2026-03-10] 生成阶段不再自动入库，必须先点击“准备数据”
+[2026-03-10] 日志目录统一为 `/Users/fishyuu/idea_project/mul_p2p/generate_image/logs`
+[2026-03-10] 新增 Milvus 向量入库接口：`POST /api/ingest/milvus/products`
+[2026-03-10] Prepare Data 接入向量入库（默认 1000 条，batch_size=32）
+[2026-03-10] 向量入库优化：已入库且 `sha256` 未变化的数据直接跳过，不再重复 embedding
+[2026-03-10] SearchService 接入 Milvus dense 检索并与 BM25 混合（7:3），无 Milvus/embedding 时回退本地 dense
+[2026-03-10] 检索向量升级为图片嵌入：爆款入库改为按图片 embedding，检索改为按新品图片 embedding
+[2026-03-10] 向量版本标记机制完成：embedding 管线/模型变化时自动重建一次，之后继续按 `sha256` 跳过未变化数据
+[2026-03-10] 新增 `/api/ingest/status` 就绪检查接口（CSV行数 + Milvus实体数）
+[2026-03-10] Studio“准备数据”改为智能跳过：已有数据时不再重跑入库/embedding，直接加载新品并查询 Top-3
+
+========================================
+进行中 (In Progress)
+========================================
+1. 线上质量调优（优化 Qwen 风格分析与生成提示词）
+
+========================================
+待完成 (Todo)
+========================================
+1. 相似度告警阻断（阈值 0.7）
+2. 单次重试（Qwen 改写 prompt）
+3. MinIO 上传与 60s 预签名下载
+4. 审计日志全字段落库（完整口径）
+5. `/metrics` 页面联通最终业务统计口径（按线上定义）
+6. SSE 改造为异步任务实时推送（当前为同步任务事件回放）
+7. 联调与验收（目标：2026-03-12）
+
+========================================
+阻塞项 (Blockers)
+========================================
+1. 真实模式依赖有效 key：`MODELSCOPE_API_KEY`、`OPENROUTER_API_KEY`
+2. embedding 厂商需支持图片输入（OpenAI-compatible embeddings 多模态格式）
+
+========================================
+更新规范 (Update Rule)
+========================================
+- 每完成 1 个待办项，必须：
+1. 从 Todo 移到 Done，并写日期
+2. 更新 Last Updated
+3. 若有新风险，补充到 Blockers

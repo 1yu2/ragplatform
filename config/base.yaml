@@ -1,0 +1,47 @@
+app:
+  name: generate-image-mvp
+  debug: false
+  host: 0.0.0.0
+  port: 8000
+
+database:
+  sqlite_url: sqlite:///./data/app.db
+
+ai:
+  enable_mock: true
+  openrouter_api_key: ""
+  modelscope_api_key: ""
+  modelscope_base_url: https://www.dmxapi.cn/v1/
+  openrouter_base_url: https://www.dmxapi.cn/v1/
+  modelscope_llm_model: qwen3.5-397b-a17b
+  openrouter_embedding_model: jina-embeddings-v4
+  openrouter_image_model: gemini-3.1-flash-image-preview
+
+milvus:
+  host: 192.168.10.54
+  port: 19530
+  collection: img_all
+  vector_dim: 2048
+
+minio:
+  endpoint: 192.168.10.60:9000
+  access_key: minioadmin
+  secret_key: minioadmin
+  bucket: img-all
+  secure: false
+  use_presigned_url: true
+  presigned_expire_seconds: 60
+
+data:
+  bestseller_dir: /Users/fishyuu/idea_project/mul_p2p/fashion_img
+  new_dir: /Users/fishyuu/idea_project/mul_p2p/product
+  products_csv_path: /Users/fishyuu/idea_project/mul_p2p/generate_image/data/products.csv
+  new_products_csv_path: /Users/fishyuu/idea_project/mul_p2p/generate_image/data/new_products.csv
+  generated_dir: /Users/fishyuu/idea_project/mul_p2p/generate_image/data/generated
+  logs_dir: /Users/fishyuu/idea_project/mul_p2p/generate_image/logs
+  dedup_log_path: /Users/fishyuu/idea_project/mul_p2p/generate_image/logs/dedup.log
+
+retrieval:
+  dense_weight: 0.7
+  sparse_weight: 0.3
+  top_k: 3

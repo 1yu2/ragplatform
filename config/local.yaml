@@ -1,0 +1,8 @@
+app:
+  debug: true
+
+database:
+  sqlite_url: sqlite:///./data/app.local.db
+
+ai:
+  enable_mock: true
