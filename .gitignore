@@ -1,0 +1,39 @@
+# Environment files
+.env
+.env.local
+*.env
+
+# Virtual environments
+venv/
+.venv/
+venv1/
+menv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# LangGraph
+.langgraph_api/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
