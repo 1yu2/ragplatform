@@ -4,4 +4,4 @@
       "agent": "./agent.py:agent"
     },
     "env": ".env"
-  }
+}

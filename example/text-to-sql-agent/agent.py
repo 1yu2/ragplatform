@@ -27,7 +27,7 @@ def create_sql_deep_agent():
     base_dir = os.environ["base_dir"]
 
     # Connect to Chinook database
-    db_path = os.path.join(base_dir, "app.local.db")
+    db_path = os.path.join(base_dir, "my_decision.sqlite")
     db = SQLDatabase.from_uri(f"sqlite:///{db_path}", sample_rows_in_table_info=3)
 
     model = init_chat_model(
